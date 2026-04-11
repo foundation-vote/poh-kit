@@ -113,8 +113,8 @@ The roadmap below is **dependency-ordered**, not time-bound. See the [grant appl
 Not yet accepting PRs — this is a pre-funding skeleton. Once funded, the contributing guide will go here and PRs will be welcome.
 
 To give pre-funding feedback:
-- Open an issue in this directory's GitHub repo *(will migrate to `github.com/foundation-vote/poh-kit` at funding)*
-- Reach out on PSE Discord — look for `@foundation-vote`
+- Open an issue at https://github.com/foundation-vote/poh-kit/issues
+- Reach out on PSE Discord — look for `@dagangilat`
 - Ethereum Research forum post: *(link to be added after announcement)*
 
 ---
