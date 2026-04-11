@@ -1,0 +1,23 @@
+{
+  "name": "poh-kit",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Layered Proof-of-Humanity for Ethereum applications — Self Protocol + Semaphore + WebAuthn",
+  "workspaces": [
+    "packages/core",
+    "packages/verifier",
+    "packages/react",
+    "packages/examples/evm-hardhat"
+  ],
+  "scripts": {
+    "build": "echo 'not yet implemented'",
+    "test": "echo 'not yet implemented'",
+    "lint": "echo 'not yet implemented'"
+  },
+  "license": "(MIT OR Apache-2.0)",
+  "author": "Dagan Gilat <dagan.gilat@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foundation-vote/poh-kit"
+  }
+}

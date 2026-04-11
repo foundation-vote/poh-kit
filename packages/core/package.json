@@ -1,0 +1,15 @@
+{
+  "name": "@poh-kit/core",
+  "version": "0.0.0",
+  "description": "Core identity commitment, nullifier management, and proof lifecycle for poh-kit",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "(MIT OR Apache-2.0)",
+  "author": "Dagan Gilat <dagan.gilat@gmail.com>",
+  "peerDependencies": {
+    "@selfxyz/core": "*",
+    "@semaphore-protocol/identity": "*",
+    "@semaphore-protocol/group": "*",
+    "@semaphore-protocol/proof": "*"
+  }
+}

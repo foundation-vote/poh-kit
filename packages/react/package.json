@@ -1,0 +1,13 @@
+{
+  "name": "@poh-kit/react",
+  "version": "0.0.0",
+  "description": "React hooks for poh-kit enrollment and anonymous signaling flows",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "(MIT OR Apache-2.0)",
+  "author": "Dagan Gilat <dagan.gilat@gmail.com>",
+  "peerDependencies": {
+    "@poh-kit/core": "*",
+    "react": ">=18"
+  }
+}
