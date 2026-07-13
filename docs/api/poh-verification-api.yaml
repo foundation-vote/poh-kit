@@ -10,7 +10,7 @@ info:
     of the hosted service and are out of scope here.
   license:
     name: MIT OR Apache-2.0
-    identifier: MIT
+    identifier: MIT OR Apache-2.0
 servers:
   - url: https://evoting-api-213114263206.us-east1.run.app
     description: Foundation-hosted service
@@ -116,7 +116,8 @@ paths:
       operationId: attachCommitment
       summary: Bind a Semaphore commitment to a verified identity
       security:
-        - bearerJwt: []
+        - apiKey: []
+          bearerJwt: []
       requestBody:
         required: true
         content:
