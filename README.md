@@ -26,7 +26,7 @@ Today, developers building ZK-enabled DAOs, voting platforms, grant rounds, and 
 | `@poh-kit/verifier` | ✅ (partial) | Storage adapters, tier-expanded Semaphore group building, anonymous signal verification, and Self Protocol passport verification — gaas-client lands next |
 | `@poh-kit/gaas-client` | ✅ | Typed client for the hosted verification API |
 | `@poh-kit/react` | Skeleton | React hooks for enrollment and anonymous signaling flows |
-| `@poh-kit/examples/evm-hardhat` | Skeleton | Runnable EVM example — full stack, local chain, end-to-end flow |
+| `@poh-kit/examples/evm-hardhat` | ✅ | Runnable EVM example — full stack, local chain, end-to-end flow |
 | contracts/evm | ✅ | IdentityRegistry, IdentityCommitments, Attestations — deployed on OP Sepolia |
 | contracts/solana | ✅ | Anchor identity programs — registry, commitments, attestations (devnet) |
 

@@ -1,0 +1,24 @@
+{
+  "name": "@poh-kit/example-evm-hardhat",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT OR Apache-2.0",
+  "type": "commonjs",
+  "scripts": {
+    "e2e": "hardhat run scripts/e2e.ts"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@openzeppelin/contracts": "^5.1.0",
+    "hardhat": "^2.22.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.5.0",
+    "@types/node": "^22.0.0"
+  },
+  "dependencies": {
+    "@poh-kit/core": "file:../../packages/core",
+    "@poh-kit/verifier": "file:../../packages/verifier",
+    "@semaphore-protocol/group": "^4.0.0",
+    "@semaphore-protocol/proof": "^4.0.0"
+  }
+}
