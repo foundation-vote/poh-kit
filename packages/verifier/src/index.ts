@@ -3,3 +3,5 @@ export type { CachedGroup, GroupStore, NullifierStore, PohLogger, UsedSignalStor
 export { silentLogger } from "./stores.js";
 export { InMemoryGroupStore, InMemoryNullifierStore, InMemoryUsedSignalStore } from "./memory.js";
 export { buildGroups } from "./groups.js";
+export { verifySemaphoreSignal } from "./signal.js";
+export type { SemaphoreProof, VerifySignalDeps, VerifySignalInput, VerifySignalResult } from "./signal.js";
