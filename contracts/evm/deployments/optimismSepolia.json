@@ -1,0 +1,13 @@
+{
+  "network": "optimismSepolia",
+  "chainId": 11155420,
+  "rpcUrl": "https://sepolia.optimism.io",
+  "deployer": "0x6090B362E6FCb55218E2d6bB4CBDd55573a71aF6",
+  "relayer": "0x6090B362E6FCb55218E2d6bB4CBDd55573a71aF6",
+  "deployedAt": "2026-06-16T22:35:07Z",
+  "contracts": {
+    "identityRegistry": "0x847833b501d5e60AB434CCFCd61b658a670a76af",
+    "identityCommitments": "0xA0A2aFC80ef2CA1d34a113287Ef6d3D16321D5a5",
+    "attestations": "0xfE30FB91427a6dcA257b3d0c90108C78EEa3e985"
+  }
+}
