@@ -5,3 +5,8 @@ export { InMemoryGroupStore, InMemoryNullifierStore, InMemoryUsedSignalStore } f
 export { buildGroups } from "./groups.js";
 export { verifySemaphoreSignal } from "./signal.js";
 export type { SemaphoreProof, VerifySignalDeps, VerifySignalInput, VerifySignalResult } from "./signal.js";
+export { createSelfVerifier, verifyPassportProof } from "./passport.js";
+export type {
+  SelfVerifierConfig, SelfVerifierLike, SelfVerifyOutcome,
+  VerifyPassportInput, VerifyPassportResult,
+} from "./passport.js";
