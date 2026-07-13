@@ -1,0 +1,14 @@
+name: solana
+on:
+  push: { branches: [main], paths: ["contracts/solana/**", ".github/workflows/solana.yml"] }
+  pull_request: { paths: ["contracts/solana/**"] }
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: contracts/solana } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with: { workspaces: contracts/solana }
+      - run: cargo check --workspace
