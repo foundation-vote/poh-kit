@@ -1,0 +1,15 @@
+{
+  "name": "@poh-kit/gaas-client",
+  "version": "0.1.0",
+  "description": "TypeScript client for the Foundation Proof-of-Humanity verification API (GaaS)",
+  "license": "MIT OR Apache-2.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": { "node": ">=20" }
+}
