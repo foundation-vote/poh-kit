@@ -1,0 +1,160 @@
+openapi: 3.1.0
+info:
+  title: Foundation Proof-of-Humanity Verification API
+  version: 0.1.0
+  description: |
+    The GaaS verification API: Self Protocol ePassport verification, Semaphore
+    commitment binding, tier-scoped group reads, and anonymous signaling.
+    This spec is MIT/Apache-2.0 — implement it yourself or use Foundation's
+    hosted service. API-key issuance and tenant administration are properties
+    of the hosted service and are out of scope here.
+  license:
+    name: MIT OR Apache-2.0
+    identifier: MIT
+servers:
+  - url: https://evoting-api-213114263206.us-east1.run.app
+    description: Foundation-hosted service
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-PoH-API-Key
+      description: Key format `poh_live_…` (issued by the hosted service)
+    bearerJwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error: { type: string, description: "Machine-readable code" }
+        message: { type: string }
+    VerifyPassportRequest:
+      type: object
+      required: [attestation_id, proof, pub_signals]
+      properties:
+        attestation_id: { type: string, description: "Self attestation id (1=passport, 2/4=id card)" }
+        proof: { type: object, description: "Groth16 proof from the Self app" }
+        pub_signals: { type: object }
+        userContextData: { type: object }
+    VerifyPassportResponse:
+      type: object
+      required: [nullifier, trustTier, verifiedAt]
+      properties:
+        nullifier: { type: string }
+        trustTier: { type: string, enum: [low, medium, high] }
+        verifiedAt: { type: string, format: date-time }
+    AttachCommitmentRequest:
+      type: object
+      required: [commitment]
+      properties:
+        commitment: { type: string, description: "Semaphore identity commitment (decimal bigint string)" }
+    AttachCommitmentResponse:
+      type: object
+      required: [success, commitment]
+      properties:
+        success: { type: boolean }
+        commitment: { type: string }
+    GroupResponse:
+      type: object
+      required: [commitments, memberCount, merkleRoot]
+      properties:
+        commitments: { type: array, items: { type: string } }
+        memberCount: { type: integer }
+        merkleRoot: { type: string }
+    AnonymousVoteRequest:
+      type: object
+      required: [proposalId, optionId, proof, nullifier, signal, externalNullifier]
+      properties:
+        proposalId: { type: string }
+        optionId: { type: string }
+        proof: { type: object, description: "Semaphore proof" }
+        nullifier: { type: string }
+        signal: { type: string }
+        externalNullifier: { type: string, description: "Scope — one signal per member per scope" }
+    AnonymousVoteResponse:
+      type: object
+      required: [success, transactionSignature]
+      properties:
+        success: { type: boolean }
+        transactionSignature: { type: string, description: "On-chain tx signature" }
+    StatusResponse:
+      type: object
+      required: [exists, nullifier, hasCommitment]
+      properties:
+        exists: { type: boolean }
+        nullifier: { type: string }
+        proofType: { type: string }
+        trustTier: { type: string, enum: [low, medium, high] }
+        verifiedAt: { type: string, format: date-time }
+        hasCommitment: { type: boolean }
+security:
+  - apiKey: []
+paths:
+  /api/v1/poh/verify-passport:
+    post:
+      operationId: verifyPassport
+      summary: Verify a Self Protocol ePassport/ID ZK proof
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/VerifyPassportRequest" }
+      responses:
+        "200":
+          description: Verified (or idempotent re-verification)
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/VerifyPassportResponse" }
+        "400": { description: Invalid proof or missing fields, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+        "409": { description: Nullifier already bound to another subject, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+  /api/v1/poh/attach-commitment:
+    post:
+      operationId: attachCommitment
+      summary: Bind a Semaphore commitment to a verified identity
+      security:
+        - bearerJwt: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/AttachCommitmentRequest" }
+      responses:
+        "200": { description: Attached, content: { application/json: { schema: { $ref: "#/components/schemas/AttachCommitmentResponse" } } } }
+        "401": { description: Missing/invalid Bearer JWT, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+  /api/v1/poh/group:
+    get:
+      operationId: getGroup
+      summary: Read the Semaphore group (commitments, member count, root)
+      responses:
+        "200": { description: Group, content: { application/json: { schema: { $ref: "#/components/schemas/GroupResponse" } } } }
+        "401": { description: Missing/invalid API key, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+  /api/v1/poh/anonymous-vote:
+    post:
+      operationId: anonymousVote
+      summary: Cast an anonymous, tier-gated Semaphore signal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/AnonymousVoteRequest" }
+      responses:
+        "200": { description: Recorded, content: { application/json: { schema: { $ref: "#/components/schemas/AnonymousVoteResponse" } } } }
+        "403": { description: Proof root does not match the required tier group, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+        "409": { description: Nullifier already used in this scope, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+        "412": { description: Tier group is empty, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+  /api/v1/poh/status/{nullifier}:
+    get:
+      operationId: getProofStatus
+      summary: Check verification status for a nullifier
+      parameters:
+        - name: nullifier
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: Status, content: { application/json: { schema: { $ref: "#/components/schemas/StatusResponse" } } } }
+        "401": { description: Missing/invalid API key, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
