@@ -3,3 +3,5 @@ export { TIER_RANK, TIERS, meetsTier, proofTypeForAttestation, trustTierFor } fr
 export type { TrustTier } from "./tiers.js";
 export { AttestationKind } from "./attestations.js";
 export type { DisclosureItem, IdentityProofRecord } from "./types.js";
+export { createIdentity } from "./identity.js";
+export type { PohIdentity } from "./identity.js";
