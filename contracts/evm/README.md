@@ -15,3 +15,11 @@ Solana programs in [`../solana`](../solana).
 ```bash
 npm install && npx hardhat test
 ```
+
+## Source verification
+
+The deployed addresses are not yet source-verified on the public explorers.
+See [VERIFY.md](./VERIFY.md) for the recipe — including the measured fact that
+this repo's source compiles to byte-identical runtime bytecode, and why a full
+match needs either a redeploy from this source or verification from the original
+deploy-time source.
