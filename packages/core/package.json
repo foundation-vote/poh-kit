@@ -13,5 +13,10 @@
   },
   "dependencies": {
     "@semaphore-protocol/identity": "^4.0.0"
-  }
+  },
+  "keywords": ["proof-of-humanity", "sybil-resistance", "semaphore", "self-protocol", "identity", "zk"],
+  "repository": { "type": "git", "url": "git+https://github.com/poh-kit/poh-kit.git", "directory": "packages/core" },
+  "homepage": "https://github.com/poh-kit/poh-kit/tree/main/packages/core#readme",
+  "bugs": "https://github.com/poh-kit/poh-kit/issues",
+  "publishConfig": { "access": "public" }
 }

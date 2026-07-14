@@ -11,5 +11,10 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit"
   },
-  "engines": { "node": ">=20" }
+  "engines": { "node": ">=20" },
+  "keywords": ["proof-of-humanity", "sybil-resistance", "verification-api", "sdk", "client"],
+  "repository": { "type": "git", "url": "git+https://github.com/poh-kit/poh-kit.git", "directory": "packages/gaas-client" },
+  "homepage": "https://github.com/poh-kit/poh-kit/tree/main/packages/gaas-client#readme",
+  "bugs": "https://github.com/poh-kit/poh-kit/issues",
+  "publishConfig": { "access": "public" }
 }

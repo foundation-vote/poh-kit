@@ -16,5 +16,10 @@
     "@selfxyz/core": "^1.2.0-beta.1",
     "@semaphore-protocol/group": "^4.0.0",
     "@semaphore-protocol/proof": "^4.0.0"
-  }
+  },
+  "keywords": ["proof-of-humanity", "sybil-resistance", "semaphore", "self-protocol", "zk", "verifier"],
+  "repository": { "type": "git", "url": "git+https://github.com/poh-kit/poh-kit.git", "directory": "packages/verifier" },
+  "homepage": "https://github.com/poh-kit/poh-kit/tree/main/packages/verifier#readme",
+  "bugs": "https://github.com/poh-kit/poh-kit/issues",
+  "publishConfig": { "access": "public" }
 }
