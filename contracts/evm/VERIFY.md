@@ -41,27 +41,30 @@ The script prints the new addresses and a ready-to-run `hardhat verify` line for
 each (each constructor takes the admin address as its single argument). Then
 update `deployments/optimismSepolia.json` with the new addresses.
 
-## Quick path: verify the existing addresses on Sourcify (default, key-free)
+## Status: ✅ verified on Sourcify (2026-07-14)
 
-No redeploy, no gas, no API key. `hardhat.config.ts` has Sourcify enabled and
-Etherscan disabled, so `hardhat verify` submits to Sourcify only. The current
-deployments were created with admin/relayer
-`0x6090B362E6FCb55218E2d6bB4CBDd55573a71aF6` — the single constructor argument
-each contract needs:
+All three addresses are source-verified on Sourcify (`match` — runtime + creation
+bytecode match; metadata differs from the deploy-time build). Browse at
+`https://repo.sourcify.dev/11155420/<address>`; also surfaces on **Blockscout**.
+Optimistic **Etherscan** doesn't read Sourcify — its own badge would need the
+full-match redeploy path above.
+
+## Re-verify on Sourcify (key-free, no gas)
+
+> ⚠ `npx hardhat verify` does **not** work here: Sourcify retired its v1 API
+> (2026-07-07) and hardhat-verify 2.x (Hardhat 2) only speaks v1 — the v2 fix is
+> Hardhat-3 only. Use the Sourcify **v2 API** directly instead:
 
 ```bash
 cd contracts/evm && npm install   # first time only
-ADMIN=0x6090B362E6FCb55218E2d6bB4CBDd55573a71aF6
-npx hardhat verify --network optimismSepolia 0x847833b501d5e60AB434CCFCd61b658a670a76af $ADMIN  # IdentityRegistry
-npx hardhat verify --network optimismSepolia 0xA0A2aFC80ef2CA1d34a113287Ef6d3D16321D5a5 $ADMIN  # IdentityCommitments
-npx hardhat verify --network optimismSepolia 0xfE30FB91427a6dcA257b3d0c90108C78EEa3e985 $ADMIN  # Attestations
+npx hardhat compile
+node scripts/verify-sourcify.mjs   # submits all three via the Sourcify v2 API
 ```
 
-Expect a **partial match** (runtime bytecode matches; metadata differs). Results
-appear at https://repo.sourcify.dev and on Sourcify-reading explorers like
-**Blockscout** (optimism-sepolia.blockscout.com). Note: Optimistic **Etherscan**
-does *not* read Sourcify — for a verified badge there specifically, use the
-Etherscan full-match path (redeploy from this source, above).
+The script reads the standard-JSON input + compiler version from Hardhat's
+build-info and posts to `https://sourcify.dev/server/v2/verify/...`. No key, no
+constructor args needed (Sourcify derives them). Or verify manually in the UI at
+https://verify.sourcify.dev (chain 11155420 + address + the standard-JSON input).
 
 ## Notes
 
