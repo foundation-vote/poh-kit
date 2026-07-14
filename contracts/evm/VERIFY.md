@@ -41,13 +41,17 @@ The script prints the new addresses and a ready-to-run `hardhat verify` line for
 each (each constructor takes the admin address as its single argument). Then
 update `deployments/optimismSepolia.json` with the new addresses.
 
-## Status: ✅ verified on Sourcify (2026-07-14)
+## Status: ✅ verified on Sourcify + Optimistic Etherscan (2026-07-14)
 
-All three addresses are source-verified on Sourcify (`match` — runtime + creation
-bytecode match; metadata differs from the deploy-time build). Browse at
-`https://repo.sourcify.dev/11155420/<address>`; also surfaces on **Blockscout**.
-Optimistic **Etherscan** doesn't read Sourcify — its own badge would need the
-full-match redeploy path above.
+All three addresses are source-verified on **both** explorers:
+- **Sourcify** — from this repo's source (`match`: runtime + creation bytecode match;
+  metadata differs). Browse `https://repo.sourcify.dev/11155420/<address>`; also on Blockscout.
+- **Optimistic Etherscan** — a full byte-for-byte match, verified against the original
+  deploy-time source (the same contracts pre-SPDX/`Errors.sol` edits; functionally
+  identical). `https://sepolia-optimism.etherscan.io/address/<address>#code`.
+
+Both are accurate — they just reflect different verification models (Sourcify tolerates
+the metadata delta; Etherscan needs an exact match, satisfied by the deploy-time source).
 
 ## Re-verify on Sourcify (key-free, no gas)
 
