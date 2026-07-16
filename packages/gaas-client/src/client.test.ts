@@ -20,6 +20,12 @@ function mockFetchOnce(status: number, body: unknown) {
 afterEach(() => vi.unstubAllGlobals());
 
 describe("PohClient", () => {
+  it("throws if baseUrl is not provided (no public default endpoint)", () => {
+    // @ts-expect-error — options is required; verify the runtime guard too
+    expect(() => new PohClient("poh_live_k")).toThrow(/baseUrl` is required/);
+    expect(() => new PohClient("poh_live_k", { baseUrl: "" })).toThrow(/baseUrl` is required/);
+  });
+
   it("verifyPassport POSTs to /api/v1/poh/verify-passport with the API key", async () => {
     const fetchMock = mockFetchOnce(200, { nullifier: "n1", trustTier: "high", verifiedAt: "t" });
     const client = new PohClient("poh_live_k", { baseUrl: "https://api.example.com" });

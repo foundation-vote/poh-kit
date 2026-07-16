@@ -87,6 +87,6 @@ export interface StatusResponse {
 // ---------------------------------------------------------------------------
 
 export interface PohClientOptions {
-  /** Override the default API base URL. */
-  baseUrl?: string;
+  /** Base URL of your verification-API deployment (required — no public default). */
+  baseUrl: string;
 }

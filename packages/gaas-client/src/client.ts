@@ -10,14 +10,16 @@ import type {
   VerifyPassportResponse,
 } from "./types.js";
 
-const DEFAULT_BASE_URL = "https://api.foundation-global.com";
-
 /**
  * Thin TypeScript client for the Foundation Proof of Humanity API.
  *
+ * There is no public default endpoint yet, so `baseUrl` is required — point it
+ * at your own deployment of the verification API (OpenAPI spec in the repo), or
+ * at Foundation's hosted service once its URL is published.
+ *
  * @example
  * ```ts
- * const client = new PohClient("poh_live_abc123");
+ * const client = new PohClient("poh_live_abc123", { baseUrl: "https://your-poh-api.example.com" });
  * const result = await client.verifyPassport("att_9f3a2b1c", proof, pubSignals);
  * console.log(result.nullifier);
  * ```
@@ -26,9 +28,15 @@ export class PohClient {
   private readonly apiKey: string;
   private readonly baseUrl: string;
 
-  constructor(apiKey: string, options?: PohClientOptions) {
+  constructor(apiKey: string, options: PohClientOptions) {
     this.apiKey = apiKey;
-    this.baseUrl = (options?.baseUrl ?? DEFAULT_BASE_URL).replace(/\/+$/, "");
+    if (!options?.baseUrl) {
+      throw new Error(
+        "PohClient: `baseUrl` is required — pass the URL of your verification-API deployment " +
+          "(there is no public default endpoint yet).",
+      );
+    }
+    this.baseUrl = options.baseUrl.replace(/\/+$/, "");
   }
 
   // -----------------------------------------------------------------------

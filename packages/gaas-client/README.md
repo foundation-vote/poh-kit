@@ -13,7 +13,9 @@ npm install @poh-kit/gaas-client
 ```ts
 import { PohClient, PohApiError } from "@poh-kit/gaas-client";
 
-const client = new PohClient("poh_live_your_api_key");
+const client = new PohClient("poh_live_your_api_key", {
+  baseUrl: "https://your-poh-api.example.com", // your verification-API deployment
+});
 
 // 1. Verify an ePassport ZK proof
 const result = await client.verifyPassport(
@@ -71,6 +73,6 @@ const client = new PohClient("poh_live_key", {
 ## Open client, closed service
 
 This SDK and the [API spec](../../docs/api/poh-verification-api.yaml) are
-MIT/Apache-2.0. The hosted multi-tenant service behind the default base URL is
-Foundation's commercial offering; you can also implement the spec yourself and
-point `baseUrl` at your own deployment.
+MIT/Apache-2.0. You point `baseUrl` at any deployment of the spec — implement it
+yourself, or use Foundation's hosted multi-tenant service (its commercial
+offering) once its URL is published. There is no baked-in default endpoint.

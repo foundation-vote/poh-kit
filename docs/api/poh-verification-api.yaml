@@ -12,8 +12,8 @@ info:
     name: MIT OR Apache-2.0
     identifier: MIT OR Apache-2.0
 servers:
-  - url: https://api.foundation-global.com
-    description: Foundation-hosted service
+  - url: https://your-poh-api.example.com
+    description: Your verification-API deployment (or Foundation's hosted service once its URL is published)
 components:
   securitySchemes:
     apiKey:
